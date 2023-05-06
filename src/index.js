@@ -66,11 +66,13 @@ form.addEventListener("submit", async (evt) => {
   searchQuery = evt.target.searchQuery.value.trim();
   page = 1;
   loadMoreBtn.style.display = "none";
-if (!searchQuery) { return; }
+
   const data = await fetchImages();
   gallery.innerHTML = "";
   if (data.hits.length === 0) {
     Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+  } else if (!searchQuery) {
+    Notiflix.Notify.failure("Please enter a search query.");
   } else {
     displayImages(data);
     Notiflix.Notify.success(`Hooray! We found ${ data.totalHits } images.`);
